@@ -1,22 +1,22 @@
 package fr.simsa.sleepmonitor.widgets.styles
 
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
-import fr.simsa.sleepmonitor.ui.theme.BlueNightBackground
+import fr.simsa.sleepmonitor.ui.theme.BlueLightPolice
 
 @Composable
-fun RectangleForm(
+fun CircleForm(
     modifier: Modifier = Modifier,
-    height: Int = 150,
-    shape: Shape = RectangleShape,
-    color: Color = BlueNightBackground,
-    content:@Composable () -> Unit,
+    height: Int = 70,
+    shape: Shape = CircleShape,
+    color: Color = BlueLightPolice,
+    content: @Composable () -> Unit,
 ) {
     Surface(
         modifier
