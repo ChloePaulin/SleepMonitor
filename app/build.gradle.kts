@@ -41,6 +41,10 @@ android {
 
 dependencies {
 
+//    Ajout de Material3 ligne 45 à 47
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.compose.material3.window.size.class1.v132)
+    implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
