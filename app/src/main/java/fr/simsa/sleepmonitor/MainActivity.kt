@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import fr.simsa.sleepmonitor.ui.theme.SleepMonitorTheme
 import fr.simsa.sleepmonitor.widgets.styles.RectangleForm
 
