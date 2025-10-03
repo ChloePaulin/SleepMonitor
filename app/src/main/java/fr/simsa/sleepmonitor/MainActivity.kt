@@ -13,11 +13,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import fr.simsa.sleepmonitor.ui.theme.SleepMonitorTheme
+import fr.simsa.sleepmonitor.widgets.styles.CircleForm
 import fr.simsa.sleepmonitor.widgets.styles.RectangleForm
 
 class MainActivity : ComponentActivity() {
