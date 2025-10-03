@@ -8,13 +8,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
+import fr.simsa.sleepmonitor.ui.theme.BlueNightBackground
 
 @Composable
 fun RectangleForm(
     modifier: Modifier = Modifier,
     height: Int = 150,
     shape: Shape = RectangleShape,
-    color: Color = Color(154,213,233),
+    color: Color = BlueNightBackground,
     content:@Composable () -> Unit,
 ) {
     Surface(
