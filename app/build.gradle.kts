@@ -41,12 +41,14 @@ android {
 
 dependencies {
 
-    // Ajout de Material3 ligne 45 à 47
+    // Ajout de Material ligne suivante
+    implementation(libs.androidx.compose.material)
+
+    // Ajout de Material3 3 prochaines lignes
     implementation(libs.androidx.material3)
     implementation(libs.androidx.compose.material3.window.size.class1.v132)
     implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
-    // Ajout de google Fonts ligne 49
-    implementation(libs.androidx.compose.ui.text.google.fonts)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -55,6 +57,9 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    // Ajout de dépendances pour la navigation lignes 59 et 60
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

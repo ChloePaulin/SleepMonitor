@@ -1,4 +1,4 @@
-package fr.simsa.sleepmonitor.widgets.styles
+package fr.simsa.sleepmonitor.widgets.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +19,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import fr.simsa.sleepmonitor.R
+import fr.simsa.sleepmonitor.widgets.styles.AppName
+import fr.simsa.sleepmonitor.widgets.styles.forms.RectangleForm
 
 @Composable
 fun EnTete() {
