@@ -1,9 +1,6 @@
 package fr.simsa.sleepmonitor.widgets.views
 
-import android.R.attr.label
-import android.R.attr.onClick
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -45,18 +42,16 @@ fun Footer(modifier: Modifier = Modifier) {
                 label = { Text(onglet) },
                 selected = selectedItem == index,
                 icon = {
-                    if (onglet == onglets[0]) {
-                        Image(
+                    when (onglet){
+                        onglets[0] -> Image(
                             painter = painterResource(id = R.drawable.history_60dp_bluelight),
                             contentDescription = "Historique"
                         )
-                    } else if (onglet == onglets[1]) {
-                        Image(
+                        onglets[1] -> Image(
                             painter = painterResource(id = R.drawable.home_60dp_bluelight),
                             contentDescription = "Accueil"
                         )
-                    } else {
-                        Image(
+                        onglets[2] -> Image(
                             painter = painterResource(id = R.drawable.account_box_60dp_bluelight),
                             contentDescription = "Profil"
                         )
