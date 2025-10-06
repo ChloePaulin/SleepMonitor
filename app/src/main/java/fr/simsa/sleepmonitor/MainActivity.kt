@@ -15,6 +15,7 @@ import fr.simsa.sleepmonitor.ui.theme.BlueNightBackground
 import fr.simsa.sleepmonitor.ui.theme.SleepMonitorTheme
 import fr.simsa.sleepmonitor.widgets.views.EnTete
 import fr.simsa.sleepmonitor.widgets.views.Footer
+import fr.simsa.sleepmonitor.widgets.views.Home
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,9 +32,8 @@ class MainActivity : ComponentActivity() {
                     topBar = { EnTete() },
                     bottomBar = { Footer() }
                 ) { innerPadding ->
-                    Text(
-                        "Bienvenue à la maison",
-                        modifier = Modifier.padding(innerPadding)
+                    Home(modifier = Modifier
+                        .padding(innerPadding)
                     )
                 }
             }

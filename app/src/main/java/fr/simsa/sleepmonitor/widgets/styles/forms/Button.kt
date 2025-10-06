@@ -10,12 +10,14 @@ import androidx.compose.ui.graphics.Shape
 fun Button(
     modifier: Modifier = Modifier,
     shape: Shape = RectangleShape,
-    onClick: () -> Unit = { println("Je suis un bouton") },
+    onClick: () -> Unit = {  },
+    content:@Composable () -> Unit
 ) {
     Button(
         modifier = modifier,
         shape = shape,
         onClick = { onClick() }
     ) {
+        content()
     }
 }
