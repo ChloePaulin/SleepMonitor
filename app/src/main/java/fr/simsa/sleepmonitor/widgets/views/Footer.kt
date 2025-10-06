@@ -67,7 +67,6 @@ fun Footer(
                 },
                 onClick = {
                     onItemSelected(index)
-                    println("Click sur onglet $onglet")
                 }
             )
         }
