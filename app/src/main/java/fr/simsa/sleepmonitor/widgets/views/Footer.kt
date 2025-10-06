@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import fr.simsa.sleepmonitor.R
+import fr.simsa.sleepmonitor.ui.theme.BlueLightPolice
 import fr.simsa.sleepmonitor.ui.theme.BlueNightBackground
 
 /**
@@ -39,21 +40,25 @@ fun Footer(modifier: Modifier = Modifier) {
     ) {
         onglets.forEachIndexed { index, onglet ->
             NavigationBarItem(
-                label = { Text(
-                    onglet,
-                    color = BlueLightPolice
-                              ) },
+                label = {
+                    Text(
+                        onglet,
+                        color = BlueLightPolice
+                    )
+                },
                 selected = selectedItem == index,
                 icon = {
-                    when (onglet){
+                    when (onglet) {
                         onglets[0] -> Image(
                             painter = painterResource(id = R.drawable.history_60dp_bluelight),
                             contentDescription = "Historique"
                         )
+
                         onglets[1] -> Image(
                             painter = painterResource(id = R.drawable.home_60dp_bluelight),
                             contentDescription = "Accueil"
                         )
+
                         onglets[2] -> Image(
                             painter = painterResource(id = R.drawable.account_box_60dp_bluelight),
                             contentDescription = "Profil"
