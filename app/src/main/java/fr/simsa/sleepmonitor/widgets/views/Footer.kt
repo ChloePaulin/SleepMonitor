@@ -39,7 +39,10 @@ fun Footer(modifier: Modifier = Modifier) {
     ) {
         onglets.forEachIndexed { index, onglet ->
             NavigationBarItem(
-                label = { Text(onglet) },
+                label = { Text(
+                    onglet,
+                    color = BlueLightPolice
+                              ) },
                 selected = selectedItem == index,
                 icon = {
                     when (onglet){
