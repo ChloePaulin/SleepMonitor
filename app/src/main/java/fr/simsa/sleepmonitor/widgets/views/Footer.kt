@@ -24,19 +24,19 @@ import fr.simsa.sleepmonitor.ui.theme.BlueNightBackground
  */
 
 @Composable
-fun Footer(modifier: Modifier = Modifier) {
-    /**
-     * Représente l'onglet actuellement sélectionné
-     */
-    var selectedItem by remember { mutableIntStateOf(1) }
-
+fun Footer(
+    selectedItem: Int,
+    onItemSelected: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     /**
      * Liste des onglets à afficher dans la barre de navigation.
      */
     val onglets = listOf("Historique", "Accueil", "Profil")
 
     NavigationBar(
-        containerColor = BlueNightBackground
+        containerColor = BlueNightBackground,
+        modifier = modifier
     ) {
         onglets.forEachIndexed { index, onglet ->
             NavigationBarItem(
@@ -66,7 +66,7 @@ fun Footer(modifier: Modifier = Modifier) {
                     }
                 },
                 onClick = {
-                    selectedItem = index
+                    onItemSelected(index)
                     println("Click sur onglet $onglet")
                 }
             )
