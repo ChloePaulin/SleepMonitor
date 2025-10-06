@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
                 /**
                  * Représente l'onglet actuellement sélectionné
                  */
-                var selectedItem by remember { mutableIntStateOf(1) }
+                var selectedItem by remember { mutableIntStateOf(2) }
 
                 Scaffold(
                     modifier = Modifier
