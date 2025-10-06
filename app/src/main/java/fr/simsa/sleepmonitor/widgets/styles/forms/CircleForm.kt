@@ -1,4 +1,4 @@
-package fr.simsa.sleepmonitor.widgets.styles
+package fr.simsa.sleepmonitor.widgets.styles.forms
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.CircleShape

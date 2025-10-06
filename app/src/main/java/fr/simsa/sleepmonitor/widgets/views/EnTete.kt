@@ -1,0 +1,65 @@
+package fr.simsa.sleepmonitor.widgets.views
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import fr.simsa.sleepmonitor.R
+import fr.simsa.sleepmonitor.widgets.styles.AppName
+import fr.simsa.sleepmonitor.widgets.styles.forms.RectangleForm
+
+@Composable
+fun EnTete() {
+    Column {
+        RectangleForm(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    // Calcul la valeur du padding en fonction de la bar de status.
+                    .padding(
+                        top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+                    ),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(65.dp),
+                    contentAlignment = Alignment.Center,
+                )
+                {
+                    Image(
+                        painter = painterResource(id = R.drawable.logo_sleep_monitor),
+                        contentDescription = "Logo Sleep Monitor",
+                        Modifier
+                            .size(65.dp)
+                    )
+                }
+                Box(
+                    contentAlignment = Alignment.Center,
+                ) {
+                    AppName()
+                }
+            }
+        }
+    }
+}
