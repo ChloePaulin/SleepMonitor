@@ -1,8 +1,6 @@
 package fr.simsa.sleepmonitor.widgets.styles.forms
 
 import androidx.compose.material3.Button
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
@@ -12,7 +10,7 @@ import androidx.compose.ui.graphics.Shape
 fun Button(
     modifier: Modifier = Modifier,
     shape: Shape = RectangleShape,
-    onClick: () -> Unit = {println("Je suis un bouton")},
+    onClick: () -> Unit = { println("Je suis un bouton") },
 ) {
     Button(
         modifier = modifier,

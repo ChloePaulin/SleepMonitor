@@ -16,7 +16,7 @@ fun RectangleForm(
     height: Int = 150,
     shape: Shape = RectangleShape,
     color: Color = BlueNightBackground,
-    content:@Composable () -> Unit,
+    content: @Composable () -> Unit,
 ) {
     Surface(
         modifier

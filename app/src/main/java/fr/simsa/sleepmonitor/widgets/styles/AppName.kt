@@ -14,9 +14,10 @@ val deliusSwashCaps = FontFamily(
 
 @Composable
 fun AppName() {
-    Text("SleepMonitor",
+    Text(
+        "SleepMonitor",
         color = BlueLightPolice,
         fontFamily = deliusSwashCaps,
         fontSize = 32.sp
-        )
+    )
 }

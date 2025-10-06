@@ -31,8 +31,10 @@ class MainActivity : ComponentActivity() {
                     topBar = { EnTete() },
                     bottomBar = { Footer() }
                 ) { innerPadding ->
-                    Text("Bienvenue à la maison",
-                        modifier = Modifier.padding(innerPadding))
+                    Text(
+                        "Bienvenue à la maison",
+                        modifier = Modifier.padding(innerPadding)
+                    )
                 }
             }
         }
