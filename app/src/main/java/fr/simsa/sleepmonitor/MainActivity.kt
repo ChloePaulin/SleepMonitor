@@ -5,7 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import fr.simsa.sleepmonitor.ui.theme.SleepMonitorTheme
 import fr.simsa.sleepmonitor.widgets.views.EnTete
@@ -17,11 +19,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SleepMonitorTheme {
-                Scaffold (
+                Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    topBar = { EnTete()},
-                    bottomBar = { Footer() },
-                ){
+                    topBar = { EnTete() },
+                    bottomBar = { Footer() }
+                ) { innerPadding ->
+                    Text("Bienvenue à la maison",
+                        modifier = Modifier.padding(innerPadding))
                 }
             }
         }

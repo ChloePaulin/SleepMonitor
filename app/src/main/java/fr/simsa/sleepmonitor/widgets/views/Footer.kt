@@ -1,7 +1,9 @@
 package fr.simsa.sleepmonitor.widgets.views
 
+import android.R.attr.label
 import android.R.attr.onClick
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -13,21 +15,52 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import fr.simsa.sleepmonitor.R
+import fr.simsa.sleepmonitor.ui.theme.BlueNightBackground
+
+/**
+ * Barre de navigation qui s'affiche en bas de l'écran avec trois onglets :
+ * **Historique**, **Accueil**, et **Profil**.
+ *
+ * Il y a un suivi d'état avec (`selectedItem`) pour suivre l'onglet
+ * sélectionné et met à jour l'interface lorsqu'un onglet est cliqué.
+ */
 
 @Composable
 fun Footer(modifier: Modifier = Modifier) {
+    /**
+     * Représente l'onglet actuellement sélectionné
+     */
     var selectedItem by remember { mutableIntStateOf(1) }
+
+    /**
+     * Liste des onglets à afficher dans la barre de navigation.
+     */
     val onglets = listOf("Historique", "Accueil", "Profil")
-    NavigationBar {
+
+    NavigationBar(
+        containerColor = BlueNightBackground
+    ) {
         onglets.forEachIndexed { index, onglet ->
             NavigationBarItem(
                 label = { Text(onglet) },
                 selected = selectedItem == index,
                 icon = {
-                    Image(
-                        painter = painterResource(id = R.drawable.home_24dp),
-                        contentDescription = "Home"
-                )
+                    if (onglet == onglets[0]) {
+                        Image(
+                            painter = painterResource(id = R.drawable.history_60dp_bluelight),
+                            contentDescription = "Historique"
+                        )
+                    } else if (onglet == onglets[1]) {
+                        Image(
+                            painter = painterResource(id = R.drawable.home_60dp_bluelight),
+                            contentDescription = "Accueil"
+                        )
+                    } else {
+                        Image(
+                            painter = painterResource(id = R.drawable.account_box_60dp_bluelight),
+                            contentDescription = "Profil"
+                        )
+                    }
                 },
                 onClick = {
                     selectedItem = index

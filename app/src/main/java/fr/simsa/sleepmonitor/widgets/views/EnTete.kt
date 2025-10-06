@@ -24,13 +24,7 @@ import fr.simsa.sleepmonitor.widgets.styles.forms.RectangleForm
 
 @Composable
 fun EnTete() {
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        Column(
-            Modifier.padding(
-                bottom = innerPadding
-                    .calculateBottomPadding()
-            )
-        ) {
+        Column{
             RectangleForm(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -38,8 +32,7 @@ fun EnTete() {
                 Row(
                     modifier = Modifier
                         .height(150.dp)
-                        .fillMaxSize()
-                        .padding(top = innerPadding.calculateTopPadding()),
+                        .fillMaxSize(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceEvenly,
                 ) {
@@ -66,4 +59,3 @@ fun EnTete() {
             }
         }
     }
-}
