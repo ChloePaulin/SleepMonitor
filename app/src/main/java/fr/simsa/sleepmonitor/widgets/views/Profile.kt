@@ -1,220 +1,41 @@
 package fr.simsa.sleepmonitor.widgets.views
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import fr.simsa.sleepmonitor.models.User
-import fr.simsa.sleepmonitor.ui.theme.BlueLightPolice
-import fr.simsa.sleepmonitor.ui.theme.BlueNightBackground
-import fr.simsa.sleepmonitor.widgets.styles.AppName
-import fr.simsa.sleepmonitor.widgets.styles.forms.Button
-import java.util.UUID
+import fr.simsa.sleepmonitor.widgets.views.profile.LoggedUser
+import fr.simsa.sleepmonitor.widgets.views.profile.NotLoggedUser
 
+/**
+ * Écran principal du profil.
+ * Gère la logique de connexion / déconnexion et d’affichage.
+ */
 @Composable
-fun Profile(modifier: Modifier = Modifier) {
+fun Profile(modifier: Modifier = Modifier,
+            viewModel: ViewModel = viewModel()) {
 
-    var userTest by remember {
-        mutableStateOf(
-            User(
-                id="e152361",
-                username = "JohnDoe",
-                email = "john-doe@example.fr",
-                password = "test123456",
-                createdAt = "2023-11-15"
-            )
+    var currentUser by remember { mutableStateOf<User?>(null) }
+
+    if (currentUser == null) {
+        NotLoggedUser(
+            onLoginClick = {
+                email, password ->
+                viewModel.login(email, password)
+            },
+            modifier = modifier
         )
-    }
-
-    var showModification by remember { mutableStateOf(false) }
-
-    var id by remember { mutableStateOf(userTest.id ?: UUID.randomUUID().toString()) }
-    var username by remember { mutableStateOf(userTest.username ?: "Unknown User") }
-    var email by remember { mutableStateOf(userTest.email ?: "") }
-    var password by remember { mutableStateOf(userTest.password ?: "") }
-    var createdAt by remember { mutableStateOf(userTest.createdAt ?: "") }
-    
-    Column(
-        modifier = modifier
-            .background(
-                color = BlueLightPolice
-            )
-            .fillMaxSize()
-            .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly
-    ) {
-        Row {
-            AppName(
-                value = "Mon Profil",
-                color = BlueNightBackground,
-                fontSize = 45,
-            )
-        }
-        Row {
-            Text(
-                "Identifiant : ${userTest.id}",
-                color = BlueNightBackground,
-                fontFamily = latoRegular
-            )
-        }
-        Row {
-            Text(
-                "Nom : ${userTest.username}",
-                color = BlueNightBackground,
-                fontFamily = latoRegular
-            )
-        }
-        Row {
-            Text(
-                "E-mail : ${userTest.email}",
-                color = BlueNightBackground,
-                fontFamily = latoRegular
-            )
-        }
-        Row {
-            Text(
-                "Date de création : ${userTest.createdAt}",
-                color = BlueNightBackground,
-                fontFamily = latoRegular
-            )
-        }
-
-        Row {
-            Button(
-                modifier = Modifier.background(
-                    color = Color(70, 130, 180),
-                    shape = CircleShape
-                ),
-                shape = CircleShape,
-                onClick = {
-                    username = userTest.username
-                    email = userTest.email
-                    password = userTest.password
-                    showModification = true
-                }
-            )
-            {
-                Text(
-                    "Modifier mon profil",
-                    color = Color(70, 130, 180)
-                )
-            }
-        }
-
-        Row {
-            Button(
-                modifier = Modifier.background(
-                    color = Color.Red,
-                    shape = CircleShape
-                ),
-                shape = CircleShape,
-                onClick = { println("Bouton Se déconnecter") }
-            )
-            {
-                Text(
-                    "Se déconnecter",
-                    color = Color.White
-                )
-            }
-        }
-
-        // Modifier le profil via popup
-        if (showModification) {
-            Dialog(
-                onDismissRequest = { showModification = false }
-            )
-            {
-                Surface(
-                    shape = RoundedCornerShape(16.dp),
-                    tonalElevation = 5.dp,
-                    modifier = Modifier.padding(16.dp),
-                    color = BlueNightBackground
-                ) {
-                    Column(
-                        Modifier.padding(24.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        OutlinedTextField(
-                            value = username,
-                            onValueChange = { username = it },
-                            label = {
-                                Text(
-                                "Nom d'utilisateur",
-                                color = BlueLightPolice)
-                            }
-                        )
-                        OutlinedTextField(
-                            value = email,
-                            onValueChange = { email = it },
-                            label = {
-                                Text(
-                                    "Email",
-                                    color = BlueLightPolice
-                                )
-                            }
-                        )
-                        OutlinedTextField(
-                            value = password,
-                            onValueChange = { password = it },
-                            label = {
-                                Text(
-                                    "Nouveau mot de passe",
-                                    color = BlueLightPolice
-                                )
-                                    },
-                            visualTransformation = PasswordVisualTransformation()
-                        )
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.End
-                        ) {
-                            TextButton(onClick = {
-                                username = userTest.username
-                                email = userTest.email
-                                password = userTest.password
-                                showModification = false
-                            }
-                            ) {
-                                Text("Annuler")
-                            }
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Button(onClick = {
-                                userTest = userTest.copy(
-                                    username = username,
-                                    email = email,
-                                    password = password
-                                )
-                                showModification = false
-                            }) {
-                                Text("Valider")
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    } else {
+        LoggedUser(
+            user = currentUser!!,
+            onLogout = { currentUser = null },
+            onUpdate = { updatedUser -> currentUser = updatedUser },
+            modifier = modifier
+        )
     }
 }
