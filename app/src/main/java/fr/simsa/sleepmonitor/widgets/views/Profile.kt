@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import fr.simsa.sleepmonitor.models.User
 import fr.simsa.sleepmonitor.ui.theme.BlueLightPolice
 import fr.simsa.sleepmonitor.ui.theme.BlueNightBackground
 import fr.simsa.sleepmonitor.widgets.styles.AppName
@@ -37,23 +38,23 @@ fun Profile(modifier: Modifier = Modifier) {
 
     var userTest by remember {
         mutableStateOf(
-            mapOf(
-                "id" to "e152361",
-                "username" to "JohnDoe",
-                "email" to "john-doe@example.fr",
-                "password" to "test123456",
-                "created_at" to "2023-11-15"
+            User(
+                id="e152361",
+                username = "JohnDoe",
+                email = "john-doe@example.fr",
+                password = "test123456",
+                createdAt = "2023-11-15"
             )
         )
     }
 
     var showModification by remember { mutableStateOf(false) }
 
-    var id by remember { mutableStateOf(userTest["id"] ?: UUID.randomUUID().toString()) }
-    var username by remember { mutableStateOf(userTest["username"] ?: "Unknown User") }
-    var email by remember { mutableStateOf(userTest["email"] ?: "") }
-    var password by remember { mutableStateOf(userTest["password"] ?: "") }
-    var createdAt by remember { mutableStateOf(userTest["created_at"] ?: "") }
+    var id by remember { mutableStateOf(userTest.id ?: UUID.randomUUID().toString()) }
+    var username by remember { mutableStateOf(userTest.username ?: "Unknown User") }
+    var email by remember { mutableStateOf(userTest.email ?: "") }
+    var password by remember { mutableStateOf(userTest.password ?: "") }
+    var createdAt by remember { mutableStateOf(userTest.createdAt ?: "") }
     
     Column(
         modifier = modifier
@@ -74,28 +75,28 @@ fun Profile(modifier: Modifier = Modifier) {
         }
         Row {
             Text(
-                "Identifiant : ${userTest["id"]}",
+                "Identifiant : ${userTest.id}",
                 color = BlueNightBackground,
                 fontFamily = latoRegular
             )
         }
         Row {
             Text(
-                "Nom : ${userTest["username"]}",
+                "Nom : ${userTest.username}",
                 color = BlueNightBackground,
                 fontFamily = latoRegular
             )
         }
         Row {
             Text(
-                "E-mail : ${userTest["email"]}",
+                "E-mail : ${userTest.email}",
                 color = BlueNightBackground,
                 fontFamily = latoRegular
             )
         }
         Row {
             Text(
-                "Date de création : ${userTest["created_at"]}",
+                "Date de création : ${userTest.createdAt}",
                 color = BlueNightBackground,
                 fontFamily = latoRegular
             )
@@ -108,7 +109,12 @@ fun Profile(modifier: Modifier = Modifier) {
                     shape = CircleShape
                 ),
                 shape = CircleShape,
-                onClick = { showModification = true }
+                onClick = {
+                    username = userTest.username
+                    email = userTest.email
+                    password = userTest.password
+                    showModification = true
+                }
             )
             {
                 Text(
@@ -130,7 +136,7 @@ fun Profile(modifier: Modifier = Modifier) {
             {
                 Text(
                     "Se déconnecter",
-                    color = Color.Red
+                    color = Color.White
                 )
             }
         }
@@ -186,9 +192,9 @@ fun Profile(modifier: Modifier = Modifier) {
                             horizontalArrangement = Arrangement.End
                         ) {
                             TextButton(onClick = {
-                                username = userTest["username"] ?: "Unknown User"
-                                email = userTest["email"] ?: ""
-                                password = userTest["password"] ?: ""
+                                username = userTest.username
+                                email = userTest.email
+                                password = userTest.password
                                 showModification = false
                             }
                             ) {
@@ -196,11 +202,11 @@ fun Profile(modifier: Modifier = Modifier) {
                             }
                             Spacer(modifier = Modifier.width(8.dp))
                             Button(onClick = {
-                                userTest = userTest.toMutableMap().apply {
-                                    this["username"] = username
-                                    this["email"] = email
-                                    this["password"] = password
-                                }
+                                userTest = userTest.copy(
+                                    username = username,
+                                    email = email,
+                                    password = password
+                                )
                                 showModification = false
                             }) {
                                 Text("Valider")
