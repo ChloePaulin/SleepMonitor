@@ -1,0 +1,10 @@
+package fr.simsa.sleepmonitor.models
+
+data class User(
+    val id:String,
+    val username:String,
+    val email:String,
+    val password:String,
+    val createdAt:String
+
+)

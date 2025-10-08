@@ -30,6 +30,7 @@ import fr.simsa.sleepmonitor.ui.theme.BlueLightPolice
 import fr.simsa.sleepmonitor.ui.theme.BlueNightBackground
 import fr.simsa.sleepmonitor.widgets.styles.AppName
 import fr.simsa.sleepmonitor.widgets.styles.forms.Button
+import java.util.UUID
 
 @Composable
 fun Profile(modifier: Modifier = Modifier) {
@@ -47,10 +48,13 @@ fun Profile(modifier: Modifier = Modifier) {
     }
 
     var showModification by remember { mutableStateOf(false) }
+
+    var id by remember { mutableStateOf(userTest["id"] ?: UUID.randomUUID().toString()) }
     var username by remember { mutableStateOf(userTest["username"] ?: "Unknown User") }
     var email by remember { mutableStateOf(userTest["email"] ?: "") }
     var password by remember { mutableStateOf(userTest["password"] ?: "") }
-
+    var createdAt by remember { mutableStateOf(userTest["created_at"] ?: "") }
+    
     Column(
         modifier = modifier
             .background(
@@ -139,8 +143,9 @@ fun Profile(modifier: Modifier = Modifier) {
             {
                 Surface(
                     shape = RoundedCornerShape(16.dp),
-                    tonalElevation = 8.dp,
-                    modifier = Modifier.padding(16.dp)
+                    tonalElevation = 5.dp,
+                    modifier = Modifier.padding(16.dp),
+                    color = BlueNightBackground
                 ) {
                     Column(
                         Modifier.padding(24.dp),
@@ -149,29 +154,53 @@ fun Profile(modifier: Modifier = Modifier) {
                         OutlinedTextField(
                             value = username,
                             onValueChange = { username = it },
-                            label = { Text("Nom d'utilisateur") }
+                            label = {
+                                Text(
+                                "Nom d'utilisateur",
+                                color = BlueLightPolice)
+                            }
                         )
                         OutlinedTextField(
                             value = email,
                             onValueChange = { email = it },
-                            label = { Text("Email") }
+                            label = {
+                                Text(
+                                    "Email",
+                                    color = BlueLightPolice
+                                )
+                            }
                         )
                         OutlinedTextField(
                             value = password,
                             onValueChange = { password = it },
-                            label = { Text("Nouveau mot de passe") },
+                            label = {
+                                Text(
+                                    "Nouveau mot de passe",
+                                    color = BlueLightPolice
+                                )
+                                    },
                             visualTransformation = PasswordVisualTransformation()
                         )
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.End
                         ) {
-                            TextButton(onClick = { showModification = false }) {
+                            TextButton(onClick = {
+                                username = userTest["username"] ?: "Unknown User"
+                                email = userTest["email"] ?: ""
+                                password = userTest["password"] ?: ""
+                                showModification = false
+                            }
+                            ) {
                                 Text("Annuler")
                             }
                             Spacer(modifier = Modifier.width(8.dp))
                             Button(onClick = {
-                                // Sauvegarde ou actions ici
+                                userTest = userTest.toMutableMap().apply {
+                                    this["username"] = username
+                                    this["email"] = email
+                                    this["password"] = password
+                                }
                                 showModification = false
                             }) {
                                 Text("Valider")

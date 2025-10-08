@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -23,6 +24,7 @@ import fr.simsa.sleepmonitor.widgets.views.Home
 import fr.simsa.sleepmonitor.widgets.views.Profile
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge(
@@ -35,7 +37,7 @@ class MainActivity : ComponentActivity() {
                 /**
                  * Représente l'onglet actuellement sélectionné
                  */
-                var selectedItem by remember { mutableIntStateOf(2) }
+                var selectedItem by remember { mutableIntStateOf(1) }
 
                 Scaffold(
                     modifier = Modifier
