@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1037006392669",
+    "project_id": "sleep-monitor-profile",
+    "storage_bucket": "sleep-monitor-profile.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037006392669:android:a1cecb5fac61903ac3acb4",
+        "android_client_info": {
+          "package_name": "fr.simsa.sleepmonitor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDitBPCOXZK4GGqgZoTC9rkGG_4B0xz-GM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

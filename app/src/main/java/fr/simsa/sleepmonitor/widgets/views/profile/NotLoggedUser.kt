@@ -25,12 +25,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import fr.simsa.sleepmonitor.ui.theme.BlueLightPolice
 import fr.simsa.sleepmonitor.ui.theme.BlueNightBackground
 import fr.simsa.sleepmonitor.widgets.styles.AppName
 import fr.simsa.sleepmonitor.widgets.styles.forms.Button
+import java.util.Locale
 
 /**
  * Vue affichée quand aucun utilisateur n’est connecté.
@@ -38,9 +40,12 @@ import fr.simsa.sleepmonitor.widgets.styles.forms.Button
 @Composable
 fun NotLoggedUser(
     modifier: Modifier = Modifier,
-    onLoginClick: (String, String) -> Unit
+    onLoginClick: (String, String) -> Unit,
+    onRegisterClick: (String, String, String) -> Unit
 ) {
     var showLogIn by remember { mutableStateOf(false) }
+    var showRegister by remember { mutableStateOf(false) }
+
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -62,33 +67,31 @@ fun NotLoggedUser(
             "Aucun utilisateur connecté",
             color = BlueNightBackground
         )
-        Spacer(
-            modifier = Modifier
-                .height(24.dp)
-        )
+        Spacer(modifier = Modifier.height(24.dp))
+        // Bouton Connexion
         Button(
             modifier = Modifier
-                .background(Color(70, 130, 180),
-                    CircleShape),
+                .background(Color(70, 130, 180), CircleShape),
             shape = CircleShape,
-            onClick = {
-                showLogIn = true
-            }
+            onClick = { showLogIn = true }
         ) {
-            Text(
-                "Se connecter",
-                color = Color.White)
+            Text("Se connecter", color = Color.White)
+        }
+        Spacer(modifier = Modifier.height(12.dp))
+        // Bouton Inscription
+        Button(
+            modifier = Modifier
+                .background(Color(34, 139, 34), CircleShape),
+            shape = CircleShape,
+            onClick = { showRegister = true }
+        ) {
+            Text("Créer un compte", color = Color.White)
         }
     }
 
-// Se connecter
+    // Fenêtre de connexion
     if (showLogIn) {
-        Dialog(
-            onDismissRequest = {
-                showLogIn = false
-            }
-        )
-        {
+        Dialog(onDismissRequest = { showLogIn = false }) {
             Surface(
                 shape = RoundedCornerShape(16.dp),
                 tonalElevation = 5.dp,
@@ -102,44 +105,81 @@ fun NotLoggedUser(
                     OutlinedTextField(
                         value = email,
                         onValueChange = { email = it },
-                        label = {
-                            Text(
-                                "Email",
-                                color = BlueLightPolice
-                            )
-                        }
+                        label = { Text("Email", color = BlueLightPolice) }
                     )
                     OutlinedTextField(
                         value = password,
                         onValueChange = { password = it },
-                        label = {
-                            Text(
-                                "Nouveau mot de passe",
-                                color = BlueLightPolice
-                            )
-                        },
+                        label = { Text("Mot de passe", color = BlueLightPolice) },
                         visualTransformation = PasswordVisualTransformation()
                     )
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.End
                     ) {
-                        TextButton(onClick = {
-                            showLogIn = false
-                        }
-                        ) {
+                        TextButton(onClick = { showLogIn = false }) {
                             Text("Annuler")
                         }
-                        Spacer(
-                            modifier = Modifier
-                                .width(8.dp)
-                        )
+                        Spacer(modifier = Modifier.width(8.dp))
                         Button(onClick = {
                             onLoginClick(email, password)
                             showLogIn = false
                         }) {
                             Text("Valider")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Fenêtre d'inscription
+    if (showRegister) {
+        var username by remember { mutableStateOf("") }
+        var regEmail by remember { mutableStateOf("") }
+        var regPassword by remember { mutableStateOf("") }
+
+        Dialog(onDismissRequest = { showRegister = false }) {
+            Surface(
+                shape = RoundedCornerShape(16.dp),
+                tonalElevation = 5.dp,
+                modifier = Modifier.padding(16.dp),
+                color = BlueNightBackground
+            ) {
+                Column(
+                    Modifier.padding(24.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    OutlinedTextField(
+                        value = username.uppercase(Locale.getDefault()),
+                        onValueChange = { username = it },
+                        label = { Text("Nom d'utilisateur", color = BlueLightPolice) }
+                    )
+                    OutlinedTextField(
+                        value = regEmail.uppercase(Locale.getDefault()),
+                        onValueChange = { regEmail = it },
+                        label = { Text("Email", color = BlueLightPolice) }
+                    )
+                    OutlinedTextField(
+                        value = regPassword,
+                        onValueChange = { regPassword = it },
+                        label = { Text("Mot de passe", color = BlueLightPolice) },
+                        visualTransformation = PasswordVisualTransformation()
+                    )
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        TextButton(onClick = { showRegister = false }) {
+                            Text("Annuler")
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Button(onClick = {
+                            onRegisterClick(username, regEmail, regPassword)
+                            showRegister = false
+                        }) {
+                            Text("Créer")
                         }
                     }
                 }
