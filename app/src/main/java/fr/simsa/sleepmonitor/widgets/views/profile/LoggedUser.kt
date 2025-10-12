@@ -31,7 +31,9 @@ import fr.simsa.sleepmonitor.ui.theme.BlueLightPolice
 import fr.simsa.sleepmonitor.ui.theme.BlueNightBackground
 import fr.simsa.sleepmonitor.widgets.styles.AppName
 import fr.simsa.sleepmonitor.widgets.styles.forms.Button
-import fr.simsa.sleepmonitor.widgets.views.latoRegular
+import fr.simsa.sleepmonitor.widgets.views.pages.latoRegular
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 /**
  * Vue affichée quand un utilisateur est connecté.
@@ -40,22 +42,27 @@ import fr.simsa.sleepmonitor.widgets.views.latoRegular
 fun LoggedUser(
     user: User,
     onLogout: () -> Unit,
-    onUpdate: (User) -> Unit,
+    onUpdate: (User, String?, String?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
+    /**
+     * Boîte de dialogue pour modifier le profil.
+     */
     var showModification by remember { mutableStateOf(false) }
 
-    var id by remember { mutableStateOf(user.id) }
+    // Variables pour le formulaire de modification.
     var username by remember { mutableStateOf(user.username) }
     var email by remember { mutableStateOf(user.email) }
-    var password by remember { mutableStateOf(user.password) }
-    var createdAt by remember { mutableStateOf(user.createdAt) }
+    var password by remember { mutableStateOf("") } // Initialisé vide car pas stocké
+
+    // Date formater pour l'affichage.
+    val dateFormatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE)
+    val formattedDate = user.createdAt?.let { dateFormatter.format(it) } ?: "Non disponible"
 
     Column(
         modifier = modifier
-            .background(
-                color = BlueLightPolice
-            )
+            .background(color = BlueLightPolice)
             .fillMaxSize()
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -66,13 +73,6 @@ fun LoggedUser(
                 value = "Mon Profil",
                 color = BlueNightBackground,
                 fontSize = 45,
-            )
-        }
-        Row {
-            Text(
-                "Identifiant : ${user.id}",
-                color = BlueNightBackground,
-                fontFamily = latoRegular
             )
         }
         Row {
@@ -91,7 +91,7 @@ fun LoggedUser(
         }
         Row {
             Text(
-                "Date de création : ${user.createdAt}",
+                "Date de création : $formattedDate",
                 color = BlueNightBackground,
                 fontFamily = latoRegular
             )
@@ -105,9 +105,11 @@ fun LoggedUser(
                 ),
                 shape = CircleShape,
                 onClick = {
+                    // Valeurs du formulaire réinitialiser
                     username = user.username
                     email = user.email
-                    password = user.password
+                    // Password toujours vide
+                    password = ""
                     showModification = true
                 }
             )
@@ -139,7 +141,7 @@ fun LoggedUser(
             }
         }
 
-        // Modifier le profil via popup
+        // Modification du profil via boîte de dialogue.
         if (showModification) {
             Dialog(
                 onDismissRequest = { showModification = false }
@@ -180,20 +182,27 @@ fun LoggedUser(
                             onValueChange = { password = it },
                             label = {
                                 Text(
-                                    "Nouveau mot de passe",
+                                    "Nouveau mot de passe (optionnel)",
                                     color = BlueLightPolice
                                 )
                             },
-                            visualTransformation = PasswordVisualTransformation()
+                            visualTransformation = PasswordVisualTransformation(),
+                            placeholder = {
+                                Text(
+                                    "Laisser vide si inchangé",
+                                    color = BlueLightPolice.copy(alpha = 0.5f)
+                                )
+                            }
                         )
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.End
                         ) {
                             TextButton(onClick = {
+                                // Réinitialiser et fermer si on clique sur annuler.
                                 username = user.username
                                 email = user.email
-                                password = user.password
+                                password = ""
                                 showModification = false
                             }
                             ) {
@@ -202,11 +211,17 @@ fun LoggedUser(
                             Spacer(modifier = Modifier.width(8.dp))
                             Button(onClick = {
                                 val updatedUser = user.copy(
-                                    username = username,
-                                    email = email,
-                                    password = password
+                                    username = username
                                 )
-                                onUpdate(updatedUser)
+
+                                // Envoyer le nouveau email et mot de passe.
+                                // Si password est vide, on envoie null.
+                                val newPassword = if (password.isBlank()) null else password
+
+                                onUpdate(updatedUser, email, newPassword)
+
+                                // Réinitialiser le mot de passe après envoi pour qu'il reste null.
+                                password = ""
                                 showModification = false
                             }) {
                                 Text("Valider")

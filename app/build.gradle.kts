@@ -42,9 +42,11 @@ android {
 
 dependencies {
 
-    // Import Firebase et Firestore
+    // Import Firebase, Firestore et Firebase Auth
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.ui.auth)
+    implementation("com.google.firebase:firebase-auth-ktx:23.2.1")
 
     // Firebase Analytics
     implementation(libs.firebase.analytics)
@@ -76,6 +78,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.media3.common.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

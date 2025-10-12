@@ -25,17 +25,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import fr.simsa.sleepmonitor.ui.theme.BlueLightPolice
 import fr.simsa.sleepmonitor.ui.theme.BlueNightBackground
 import fr.simsa.sleepmonitor.widgets.styles.AppName
 import fr.simsa.sleepmonitor.widgets.styles.forms.Button
-import java.util.Locale
 
 /**
  * Vue affichée quand aucun utilisateur n’est connecté.
+ * @param onLoginClick Fonction de rappel pour la connexion.
+ * @param onRegisterClick Fonction de rappel pour l'inscription.
  */
 @Composable
 fun NotLoggedUser(
@@ -43,7 +43,14 @@ fun NotLoggedUser(
     onLoginClick: (String, String) -> Unit,
     onRegisterClick: (String, String, String) -> Unit
 ) {
+    /**
+     * Boites de dialogue pour la connexion.
+     */
     var showLogIn by remember { mutableStateOf(false) }
+
+    /**
+     * Boites de dialogue pour l'inscription.
+     */
     var showRegister by remember { mutableStateOf(false) }
 
     var email by remember { mutableStateOf("") }
@@ -89,7 +96,6 @@ fun NotLoggedUser(
         }
     }
 
-    // Fenêtre de connexion
     if (showLogIn) {
         Dialog(onDismissRequest = { showLogIn = false }) {
             Surface(
@@ -121,7 +127,8 @@ fun NotLoggedUser(
                             Text("Annuler")
                         }
                         Spacer(modifier = Modifier.width(8.dp))
-                        Button(onClick = {
+                        Button(
+                            onClick = {
                             onLoginClick(email, password)
                             showLogIn = false
                         }) {
@@ -133,7 +140,6 @@ fun NotLoggedUser(
         }
     }
 
-    // Fenêtre d'inscription
     if (showRegister) {
         var username by remember { mutableStateOf("") }
         var regEmail by remember { mutableStateOf("") }
@@ -151,12 +157,12 @@ fun NotLoggedUser(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     OutlinedTextField(
-                        value = username.uppercase(Locale.getDefault()),
+                        value = username,
                         onValueChange = { username = it },
                         label = { Text("Nom d'utilisateur", color = BlueLightPolice) }
                     )
                     OutlinedTextField(
-                        value = regEmail.uppercase(Locale.getDefault()),
+                        value = regEmail,
                         onValueChange = { regEmail = it },
                         label = { Text("Email", color = BlueLightPolice) }
                     )
