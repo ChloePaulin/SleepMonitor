@@ -1,4 +1,4 @@
-package fr.simsa.sleepmonitor.widgets.views
+package fr.simsa.sleepmonitor.widgets.views.pages
 
 import androidx.compose.ui.Modifier
 

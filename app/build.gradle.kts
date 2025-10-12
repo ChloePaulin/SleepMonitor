@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -41,6 +42,15 @@ android {
 
 dependencies {
 
+    // Import Firebase, Firestore et Firebase Auth
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.ui.auth)
+    implementation("com.google.firebase:firebase-auth-ktx:23.2.1")
+
+    // Firebase Analytics
+    implementation(libs.firebase.analytics)
+
     // Ajout de Material ligne suivante
     implementation(libs.androidx.compose.material)
 
@@ -48,6 +58,17 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.compose.material3.window.size.class1.v132)
     implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
+
+    // Ajout Lifecycle ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx.v261)
+
+    // Integration Compose <-> ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // Ajout de dépendances pour la navigation 2 prochaines lignes
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -57,9 +78,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    // Ajout de dépendances pour la navigation lignes 59 et 60
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.media3.common.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -1,4 +1,4 @@
-package fr.simsa.sleepmonitor.widgets.views
+package fr.simsa.sleepmonitor.widgets.views.pages
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -39,7 +39,10 @@ val latoRegular = FontFamily(
 @Composable
 fun Home(modifier: Modifier = Modifier) {
 
-    var enregistrement by remember { mutableStateOf(false) }
+    /**
+     * Enregistre les nuits de l'utilisateur.
+     */
+    var sleepMonitorLog by remember { mutableStateOf(false) }
 
     RectangleForm(
         modifier = Modifier
@@ -82,7 +85,7 @@ fun Home(modifier: Modifier = Modifier) {
             }
             Button(
                 onClick = {
-                    if (enregistrement) enregistrement = false else enregistrement = true
+                    if (sleepMonitorLog) sleepMonitorLog = false else sleepMonitorLog = true
                     println("Click Me")
                 },
                 modifier = modifier
@@ -92,10 +95,10 @@ fun Home(modifier: Modifier = Modifier) {
                 shape = CircleShape,
             ) {
                 Image(
-                    painter = if (enregistrement) painterResource(id = R.drawable.stop_circle_90dp_bluedark) else painterResource(
+                    painter = if (sleepMonitorLog) painterResource(id = R.drawable.stop_circle_90dp_bluedark) else painterResource(
                         id = R.drawable.play_circle_90dp_bluedark
                     ),
-                    contentDescription = if (enregistrement) "Arrêter l'enregistrement" else "Démarrer l'enregistrement",
+                    contentDescription = if (sleepMonitorLog) "Arrêter l'enregistrement" else "Démarrer l'enregistrement",
                     modifier = Modifier.size(64.dp)
                 )
             }
