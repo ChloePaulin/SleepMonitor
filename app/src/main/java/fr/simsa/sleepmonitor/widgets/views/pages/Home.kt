@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +29,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import fr.simsa.sleepmonitor.R
+import fr.simsa.sleepmonitor.data.users.UserRepository
+import fr.simsa.sleepmonitor.models.User
 import fr.simsa.sleepmonitor.ui.theme.BlueLightPolice
 import fr.simsa.sleepmonitor.ui.theme.BlueNightBackground
 import fr.simsa.sleepmonitor.widgets.styles.forms.Button
@@ -43,6 +47,21 @@ fun Home(modifier: Modifier = Modifier) {
      * Enregistre les nuits de l'utilisateur.
      */
     var sleepMonitorLog by remember { mutableStateOf(false) }
+
+    /**
+     * Utilisateur actuellement connecté.
+     */
+    var currentUser by remember { mutableStateOf<User?>(null) }
+
+    /**
+     * Coroutine pour gérer les appels à la Firebase.
+     */
+    val scope = rememberCoroutineScope()
+
+    // Vérifier si un utilisateur est déjà connecté au démarrage et le récupère.
+    LaunchedEffect(Unit) {
+        currentUser = UserRepository.getCurrentUser()
+    }
 
     RectangleForm(
         modifier = Modifier

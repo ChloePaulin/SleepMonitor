@@ -42,14 +42,18 @@ android {
 
 dependencies {
 
+    // API
+    implementation(libs.retrofit.v2110)
+    implementation(libs.converter.gson.v2110)
+
     // Import Firebase, Firestore et Firebase Auth
     implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.firestore)
-    implementation(libs.firebase.ui.auth)
-    implementation("com.google.firebase:firebase-auth-ktx:23.2.1")
 
     // Firebase Analytics
     implementation(libs.firebase.analytics)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.ui.auth)
+    implementation(libs.google.firebase.auth.ktx)
 
     // Ajout de Material ligne suivante
     implementation(libs.androidx.compose.material)
