@@ -46,7 +46,7 @@ Thumbs.db
 *.log
 
 # Google Services / Firebase (si tu veux ignorer les fichiers de configuration sensibles)
-/google-services.json
+/app/google-services.json
 
 # Lint
 lint/intermediates/
