@@ -37,6 +37,10 @@ import java.util.Locale
 
 /**
  * Vue affichée quand un utilisateur est connecté.
+ * @param user L'utilisateur est obligatoirement connecté.
+ * @param onLogout Fonction appelée lors du clic sur le bouton de déconnexion.
+ * @param onUpdate Fonction appelée lors du clic sur le bouton de modification du profil.
+ * @param modifier Modifier optionnel.
  */
 @Composable
 fun LoggedUser(

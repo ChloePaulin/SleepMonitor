@@ -38,7 +38,15 @@ fun Profile(modifier: Modifier = Modifier) {
 
     // Vérifier si un utilisateur est déjà connecté au démarrage et le récupère.
     LaunchedEffect(Unit) {
-        currentUser = UserRepository.getCurrentUser()
+        val result = UserRepository.getCurrentUser()
+        result.onSuccess { user ->
+            currentUser = user
+            errorMessage = null
+        }.onFailure { error ->
+            currentUser = null
+            errorMessage = error.message ?: "Erreur inconnue"
+            println("Erreur récupération utilisateur: $errorMessage")
+        }
     }
 
     if (currentUser == null) {
@@ -49,11 +57,10 @@ fun Profile(modifier: Modifier = Modifier) {
                     val result = UserRepository.loginUser(email, password)
                     result.onSuccess { user ->
                         currentUser = user
-                        errorMessage = null
                         println("Connexion réussie : ${user.username}")
                     }.onFailure { error ->
                         errorMessage = error.message
-                        println("Erreur connexion : ${error.message}")
+                        println("Erreur connexion : $errorMessage")
                     }
                 }
             },
@@ -75,7 +82,6 @@ fun Profile(modifier: Modifier = Modifier) {
         )
     } else {
         LoggedUser(
-            // Indique que l'utilisateur n'est pas null.
             user = currentUser!!,
             onLogout = {
                 UserRepository.logout()
