@@ -124,7 +124,7 @@ object UserRepository {
 
             // Mettre à jour l'email dans Firebase Auth si modifié
             if (newEmail != null && newEmail != user.email) {
-                currentUser.updateEmail(newEmail).await()
+                currentUser.verifyBeforeUpdateEmail(newEmail).await()
             }
 
             // Mettre à jour le mot de passe dans Firebase Auth si fournit

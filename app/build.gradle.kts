@@ -46,7 +46,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.ui.auth)
-    implementation("com.google.firebase:firebase-auth-ktx:23.2.1")
+    implementation(libs.google.firebase.auth.ktx)
 
     // Firebase Analytics
     implementation(libs.firebase.analytics)
