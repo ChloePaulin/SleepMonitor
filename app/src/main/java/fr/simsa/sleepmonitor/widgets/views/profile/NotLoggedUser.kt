@@ -75,7 +75,7 @@ fun NotLoggedUser(
             color = BlueNightBackground
         )
         Spacer(modifier = Modifier.height(24.dp))
-        // Bouton Connexion
+
         Button(
             modifier = Modifier
                 .background(Color(70, 130, 180), CircleShape),
@@ -85,7 +85,7 @@ fun NotLoggedUser(
             Text("Se connecter", color = Color.White)
         }
         Spacer(modifier = Modifier.height(12.dp))
-        // Bouton Inscription
+
         Button(
             modifier = Modifier
                 .background(Color(34, 139, 34), CircleShape),
