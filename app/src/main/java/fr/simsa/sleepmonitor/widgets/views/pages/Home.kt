@@ -1,5 +1,6 @@
 package fr.simsa.sleepmonitor.widgets.views.pages
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -31,6 +33,7 @@ import fr.simsa.sleepmonitor.ui.theme.BlueLightPolice
 import fr.simsa.sleepmonitor.ui.theme.BlueNightBackground
 import fr.simsa.sleepmonitor.widgets.styles.forms.Button
 import fr.simsa.sleepmonitor.widgets.styles.forms.RectangleForm
+import fr.simsa.sleepmonitor.widgets.styles.light.LightSensorActivity
 
 val latoRegular = FontFamily(
     Font(R.font.lato_regular)
@@ -43,6 +46,8 @@ fun Home(modifier: Modifier = Modifier) {
      * Enregistre les nuits de l'utilisateur.
      */
     var sleepMonitorLog by remember { mutableStateOf(false) }
+
+    val context = LocalContext.current
 
     RectangleForm(
         modifier = Modifier
@@ -85,7 +90,14 @@ fun Home(modifier: Modifier = Modifier) {
             }
             Button(
                 onClick = {
-                    if (sleepMonitorLog) sleepMonitorLog = false else sleepMonitorLog = true
+                    if (sleepMonitorLog) sleepMonitorLog = false
+                    else {
+                        sleepMonitorLog = true
+                        val intent = Intent(context, LightSensorActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        context.startActivity(intent)
+                    }
                     println("Click Me")
                 },
                 modifier = modifier
