@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,7 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import fr.simsa.sleepmonitor.data.api.QuotesAPI
+import fr.simsa.sleepmonitor.data.api.QuotesRepository
 import fr.simsa.sleepmonitor.data.users.UserRepository
 import fr.simsa.sleepmonitor.models.User
 import fr.simsa.sleepmonitor.ui.theme.BlueLightPolice
@@ -37,14 +36,10 @@ fun History(
      */
     var currentUser by remember { mutableStateOf<User?>(null) }
 
-    var quote by remember { mutableStateOf<String?>(null) }
-
     /**
-     * Coroutine pour gérer les appels à la Firebase.
+     * Coroutine pour gérer les appels à Firebase.
      */
     val scope = rememberCoroutineScope()
-
-    var isLoading by remember { mutableStateOf(false) }
 
     // Vérifier si un utilisateur est déjà connecté au démarrage et le récupère.
     LaunchedEffect(Unit) {
@@ -90,35 +85,6 @@ fun History(
                     color = BlueNightBackground,
                     modifier = modifier
                 )
-            }
-            Row {
-                Button(
-                    onClick = {
-                        isLoading = true
-                        scope.launch {
-                            try {
-                                val api = QuotesAPI()
-                                val fetchedQuote = withContext(Dispatchers.IO) {
-                                    api.getRandomQuote()
-                                }
-                                // Afficher dans le terminal
-                                println("Citation récupérée: ${fetchedQuote?.quote}")
-                                println("Auteur: ${fetchedQuote?.author}")
-
-                                quote = fetchedQuote?.quote ?: "Aucune citation disponible"
-                            } catch (e: Exception) {
-                                println("Erreur lors de la récupération: ${e.message}")
-                                e.printStackTrace()
-                                quote = "Erreur: ${e.message}"
-                            } finally {
-                                isLoading = false
-                            }
-                        }
-                    },
-                    enabled = !isLoading
-                ) {
-                    Text(if (isLoading) "Chargement..." else "Obtenir une citation")
-                }
             }
         }
     }

@@ -52,8 +52,9 @@ dependencies {
     // Firebase Analytics
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.firestore)
-    implementation(libs.firebase.ui.auth)
-    implementation(libs.google.firebase.auth.ktx)
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
+    implementation("com.google.firebase:firebase-auth-ktx:23.2.1")
 
     // Ajout de Material ligne suivante
     implementation(libs.androidx.compose.material)
