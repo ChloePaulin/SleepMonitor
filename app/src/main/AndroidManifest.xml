@@ -20,11 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".widgets.styles.light.LightSensorActivity"
-            android:exported="false"
-            android:theme="@style/Theme.SleepMonitor" />
     </application>
 
 </manifest>
